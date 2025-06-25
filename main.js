@@ -3,10 +3,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Lógica para o menu hamburger
     const menuToggle = document.getElementById('menu-toggle');
     const navbar = document.querySelector('.navbar');
+    const body = document.body; // Seleciona o corpo do documento
 
     menuToggle.addEventListener('click', () => {
         menuToggle.classList.toggle('active');
         navbar.classList.toggle('active');
+        body.classList.toggle('menu-aberto'); // Adiciona/remove a classe no body
     });
 
     // Fechar o menu ao clicar em um link da navbar
@@ -16,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (navbar.classList.contains('active')) {
                 menuToggle.classList.remove('active');
                 navbar.classList.remove('active');
+                body.classList.remove('menu-aberto'); // Remove a classe do body
             }
         });
     });

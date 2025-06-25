@@ -32,6 +32,11 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
+/* Adicionado para travar o scroll quando o menu estiver aberto */
+body.menu-aberto {
+    overflow: hidden;
+}
+
 img {
     max-width: 100%;
     height: auto;
@@ -325,6 +330,7 @@ a {
     display: flex;
     gap: 1rem;
     margin-bottom: 2rem;
+    flex-wrap: wrap;
 }
 .project-tags span {
     background-color: #eef2ff;
@@ -411,15 +417,19 @@ a {
     color: var(--accent-color);
 }
 
-/* --- RESPONSIVIDADE --- */
+/* --- RESPONSIVIDADE (COM AJUSTES) --- */
 @media(max-width: 992px) {
     .home-container {
         grid-template-columns: 1fr;
         text-align: center;
+        gap: 4rem; /* Reduzido o gap para telas menores */
     }
     .home-image {
         grid-row: 1;
         margin-bottom: 4rem;
+    }
+    .subheading {
+        margin: 2rem auto 3rem; /* Centraliza o parágrafo na home */
     }
     .home-buttons {
         justify-content: center;
@@ -428,9 +438,14 @@ a {
         grid-template-columns: 1fr;
     }
 }
+
 @media(max-width: 768px) {
     html {
         font-size: 60%;
+    }
+    .section-title {
+        font-size: 2.8rem; /* Ajuste fino de fonte */
+        margin-bottom: 3rem;
     }
     .navbar {
         position: fixed;
@@ -476,5 +491,29 @@ a {
     
     .heading-xl {
         font-size: 4rem;
+    }
+
+    .projects-grid {
+        /* Ajuste para telas um pouco menores que 350px */
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+
+    .contact-container p {
+        font-size: 1.6rem;
+    }
+
+    .contact-email {
+        font-size: 2.4rem; /* Ajuste para não quebrar em telas pequenas */
+    }
+}
+
+@media(max-width: 375px) {
+    html {
+        font-size: 58%; /* Redução sutil para telas bem pequenas */
+    }
+    .home-buttons {
+        flex-direction: column; /* Botões um abaixo do outro */
+        align-items: center;
     }
 }
