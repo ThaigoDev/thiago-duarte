@@ -3,25 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thiago Duarte | Desenvolvedor Full-Stack</title>
-    <meta name="description" content="Portfólio de Thiago Duarte, desenvolvedor Full-Stack focado em criar soluções web modernas e performáticas com as melhores tecnologias do mercado.">
+    <title>Thiago Duarte | Desenvolvedor Java & Full-Stack</title>
+    <meta name="description" content="Portfólio de Thiago Duarte, desenvolvedor de software focado em back-end com Java, Spring Boot e ecossistema JavaScript.">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
-
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
 
+    <canvas id="tech-canvas"></canvas>
+    <div class="grid-overlay"></div>
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+
     <header class="header">
         <div class="container">
-            <a href="#home" class="logo">Thiago Duarte</a>
+            <a href="#home" class="logo"><span class="tag">&lt;</span>Thiago.Dev<span class="tag">/&gt;</span></a>
             <nav class="navbar">
-                <a href="#about">Sobre</a>
-                <a href="#skills">Habilidades</a>
+                <a href="#about">Sobre & Experiência</a>
+                <a href="#skills">Stack</a>
                 <a href="#projects">Projetos</a>
                 <a href="#contact" class="btn-contact">Contato</a>
             </nav>
@@ -36,17 +40,19 @@
     <main>
         <section class="home" id="home">
             <div class="container home-container">
-                <div class="home-text">
-                    <h1 class="heading-xl">Desenvolvedor Full-Stack que constrói experiências digitais marcantes</h1>
-                    <p class="subheading">Sou apaixonado por criar software robusto, escalável e com foco na experiência do usuário, utilizando as tecnologias mais modernas do mercado.</p>
+                <div class="home-text reveal">
+                    <p class="tech-greeting typing-effect">System.out.println("Hello, World!");</p>
+                    <h1 class="heading-xl">Desenvolvedor <span class="highlight">Backend Java</span> & Full-Stack</h1>
+                    <p class="subheading">Atuo no desenvolvimento de software e infraestrutura. Minha base técnica envolve a criação de APIs, manutenção de sistemas legados e implantação de servidores, com foco atual no ecossistema Java e Spring Boot.</p>
                     <div class="home-buttons">
                         <a href="#projects" class="btn btn-primary">Ver Projetos</a>
                         <a href="https://www.linkedin.com/in/thiago-duarte-298121240/" target="_blank" class="btn btn-secondary">LinkedIn <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
                     </div>
                 </div>
-                <div class="home-image">
+                <div class="home-image reveal delay-1">
                     <div class="image-wrapper">
                          <img src="ft.jpeg" alt="Foto de perfil de Thiago Duarte">
+                         <div class="tech-circle"></div>
                     </div>
                 </div>
             </div>
@@ -54,28 +60,46 @@
 
         <section class="about" id="about">
             <div class="container">
-                <h2 class="section-title">Minha Jornada</h2>
+                <h2 class="section-title reveal">Trajetória Profissional_</h2>
                 <div class="about-grid">
-                    <div class="about-description">
-                        <p>Olá! Sou Thiago Duarte, um desenvolvedor com um profundo interesse em resolver problemas através da tecnologia. Minha jornada começou com a curiosidade de entender como a web funcionava e rapidamente evoluiu para uma carreira focada em criar aplicações completas, do back-end ao front-end.</p>
-                        <p>Com experiência profissional na <strong>X Serviços Digital</strong> e em projetos freelancer, desenvolvi uma habilidade sólida para transformar requisitos complexos em sistemas funcionais e intuitivos. Atualmente, estou expandindo meus horizontes acadêmicos em <strong>Ciência da Computação na Univértix</strong>, buscando sempre a excelência técnica e a inovação.</p>
+                    <div class="about-description reveal delay-1">
+                        <p>Sou estudante de Ciência da Computação na Univértix e desenvolvedor de software. Tenho background prático como Full-Stack (utilizando Node.js, React e bancos relacionais/não-relacionais), mas venho direcionando minha carreira para a engenharia de back-end corporativa com <strong>Java</strong>.</p>
+                        <p>No meu dia a dia, lido diretamente com o ciclo de vida completo de aplicações corporativas: desde o levantamento de requisitos e estruturação do banco de dados, até a configuração de pipelines de CI/CD e monitoramento em servidores Linux VPS.</p>
                         <a href="CV-THIAGO.pdf" download class="btn-download">
-                            <i class="fa-solid fa-file-arrow-down"></i> Baixar meu Currículo
+                            <i class="fa-solid fa-terminal"></i> Download_CV.pdf
                         </a>
                     </div>
+                    
                     <div class="about-experience">
-                        <div class="experience-item">
-                            <div class="experience-year">2024 - Presente</div>
+                        <div class="experience-item reveal delay-2">
+                            <div class="experience-year">Out 2025 - Presente</div>
                             <div class="experience-details">
-                                <h3>Desenvolvedor Full-Stack Freelancer</h3>
-                                <p>Criação de soluções sob medida, incluindo sistemas ERP e plataformas de gerenciamento de leads.</p>
+                                <h3>Desenvolvedor Full-Stack | Centro Universitário Univértix</h3>
+                                <p>Contribuí para o desenvolvimento de aplicações completas utilizando Next.js, Nest.js e MySQL, implementando soluções que melhoraram em até 30% a performance das aplicações da instituição. Desenvolvi e mantive APIs escaláveis com Nest.js, aumentando a produtividade da equipe ao automatizar processos manuais. Implementei pipelines de CI/CD e gerenciei deploys em servidores VPS Linux, garantindo entregas contínuas e com alta disponibilidade.</p>
                             </div>
                         </div>
-                        <div class="experience-item">
-                            <div class="experience-year">2023 - 2024</div>
+
+                        <div class="experience-item reveal delay-3">
+                            <div class="experience-year">Fev 2025 - Out 2025</div>
                             <div class="experience-details">
-                                <h3>Analista de Desenvolvimento na X Serviços Digital</h3>
-                                <p>Desenvolvimento e manutenção de aplicações internas e para clientes, atuando em todas as fases do projeto.</p>
+                                <h3>Profissional de Marketing & Web Design | Centro Universitário Univértix</h3>
+                                <p>Atuo com edição de vídeos, design gráfico, UI/UX e desenvolvimento web (HTML, CSS, JS). Minha missão é transformar ideias em experiências visuais impactantes e funcionais, combinando criatividade técnica para entregar projetos de alta qualidade para a instituição.</p>
+                            </div>
+                        </div>
+
+                        <div class="experience-item reveal delay-4">
+                            <div class="experience-year">Ago 2024 - Fev 2025</div>
+                            <div class="experience-details">
+                                <h3>Desenvolvedor Web Full-Stack | Freelancer.com</h3>
+                                <p>Desenvolvimento de soluções personalizadas e escaláveis para clientes de diversos setores. Atuação no ecossistema JavaScript/TypeScript (React, React Native, Node.js, Express) e gerenciamento de bancos de dados como MySQL, MongoDB e PostgreSQL, sempre com foco em responsividade e UX.</p>
+                            </div>
+                        </div>
+
+                        <div class="experience-item reveal delay-5">
+                            <div class="experience-year">Ago 2023 - Jul 2024</div>
+                            <div class="experience-details">
+                                <h3>Desenvolvedor Web Full-Stack | SCS Digital Business</h3>
+                                <p>Atuação remota em projetos web utilizando metodologias ágeis. Participação no design de interfaces e implementação de novas features funcionais no front-end e integrações de back-end.</p>
                             </div>
                         </div>
                     </div>
@@ -85,20 +109,21 @@
         
         <section class="skills" id="skills">
             <div class="container">
-                 <h2 class="section-title">Tecnologias e Habilidades</h2>
-                 <div class="skills-logos">
+                 <h2 class="section-title reveal">Tech_Stack</h2>
+                 <div class="skills-logos reveal delay-1">
                     <div class="logo-group">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js" title="Node.js"/>
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" alt="Express" title="Express"/>
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" title="React"/>
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB" title="MongoDB"/>
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" title="MySQL"/>
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript" title="TypeScript"/>
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" title="JavaScript"/>
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" title="HTML5"/>
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" title="CSS3"/>
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" title="Git"/>
-                         <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Figma" title="Figma"/>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" title="Java"/>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" title="Spring Boot"/>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/hibernate/hibernate-original.svg" title="Hibernate / JPA"/>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" title="MySQL"/>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" title="PostgreSQL"/>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" title="Docker"/>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" title="AWS (ECS/RDS)"/>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" title="Linux / VPS"/>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" title="Node.js"/>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nestjs/nestjs-original.svg" title="NestJS"/>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" title="MongoDB"/>
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" style="filter: invert(1);" title="GitHub Actions (CI/CD)"/>
                     </div>
                  </div>
             </div>
@@ -106,85 +131,111 @@
 
         <section class="projects" id="projects">
             <div class="container">
-                <h2 class="section-title">Projetos em Destaque</h2>
+                <h2 class="section-title reveal">Repositórios & Deploys_</h2>
                 <div class="projects-grid">
-                    <div class="project-card">
-                        <div class="project-image">
-                            <img src="omni-ERP.png" alt="Imagem do projeto OmniERP">
-                        </div>
+                    
+                    <div class="project-card highlight-card reveal">
                         <div class="project-content">
-                            <h3>OmniERP</h3>
-                            <p>Uma solução de gestão empresarial completa, projetada para otimizar o controle de produtos e fornecedores com uma interface intuitiva e funcionalidades robustas.</p>
+                            <div class="project-icon"><i class="fa-brands fa-java"></i> <i class="fa-solid fa-boxes-stacked" style="font-size: 2rem; margin-left:10px; color:var(--text-secondary)"></i></div>
+                            <h3>API Gestão de Estoque (TCC)</h3>
+                            <p>Sistema corporativo desenvolvido com Clean Architecture e princípios SOLID. Containerizado via Docker e orquestrado em ambiente AWS (ECS e RDS).</p>
                             <div class="project-tags">
-                                <span>Node.js</span><span>EJS</span><span>MongoDB</span>
+                                <span>Java</span><span>Spring Boot</span><span>Docker</span><span>AWS</span>
                             </div>
                             <div class="project-links">
-                                <a href="https://omnierp.onrender.com" target="_blank">Ver Projeto <i class="fa-solid fa-arrow-right"></i></a>
-                                <a href="https://github.com/ThaigoDev" target="_blank">GitHub</a>
+                                <a href="http://54.172.14.204" target="_blank">Acessar IP <i class="fa-solid fa-arrow-right"></i></a>
+                                <a href="https://github.com/ThaigoDev/api-smart-stock-java.git" target="_blank"><i class="fa-brands fa-github"></i> Código</a>
                             </div>
                         </div>
                     </div>
-                    <div class="project-card">
-                        <div class="project-image">
-                            <img src="lead-nexus.png" alt="Imagem do projeto Lead Nexus">
-                        </div>
+
+                    <div class="project-card reveal delay-1">
                         <div class="project-content">
-                            <h3>Lead Nexus</h3>
-                            <p>Plataforma focada em otimizar o funil de vendas através da captação e gerenciamento inteligente de leads, facilitando a conversão de novos clientes.</p>
+                            <div class="project-icon"><i class="fa-solid fa-rocket"></i></div>
+                            <h3>Matipó Mais</h3>
+                            <p>Plataforma focada na conexão entre serviços locais e usuários. Arquitetura desenhada para escalabilidade de acessos com banco de dados NoSQL.</p>
                             <div class="project-tags">
-                                <span>Node.js</span><span>TypeScript</span><span>REST API</span>
+                                <span>Node.js</span><span>Express</span><span>MongoDB</span>
                             </div>
                             <div class="project-links">
-                                <a href="https://lead-nexus-remaster.onrender.com" target="_blank">Ver Projeto <i class="fa-solid fa-arrow-right"></i></a>
-                                <a href="https://github.com/ThaigoDev" target="_blank">GitHub</a>
+                                <a href="https://matipo-mais.onrender.com" target="_blank">Acessar App <i class="fa-solid fa-arrow-right"></i></a>
+                                <a href="https://github.com/ThaigoDev" target="_blank"><i class="fa-brands fa-github"></i> Código</a>
                             </div>
                         </div>
                     </div>
-                    <div class="project-card">
-                        <div class="project-image">
-                            <img src="verboai.png" alt="Imagem do projeto Verbo AI">
-                        </div>
+
+                    <div class="project-card reveal delay-2">
                         <div class="project-content">
-                            <h3>Verbo AI</h3>
-                            <p>Uma ferramenta de IA desenvolvida para a criação de conteúdo digital, como legendas, roteiros, copys, artigos e análise de conteúdo.</p>
+                            <div class="project-icon"><i class="fa-solid fa-book-open-reader"></i></div>
+                            <h3>Library API</h3>
+                            <p>API REST para gerenciamento de bibliotecas. Conta com módulo de usuários, Authorization Server próprio, segurança via JWT e login social OAuth2.</p>
                             <div class="project-tags">
-                                <span>Node.js</span><span>Express.js</span><span>API</span>
+                                <span>Java</span><span>Spring Security</span><span>OAuth2</span><span>JPA</span>
                             </div>
                             <div class="project-links">
-                                <a href="https://verbo-ai.netlify.app/" target="_blank">Ver Projeto <i class="fa-solid fa-arrow-right"></i></a>
-                                <a href="https://github.com/ThaigoDev" target="_blank">GitHub</a>
+                                <a href="https://github.com/ThaigoDev/library-api.git" target="_blank">Ver Detalhes <i class="fa-solid fa-arrow-right"></i></a>
+                                <a href="https://github.com/ThaigoDev/library-api.git" target="_blank"><i class="fa-brands fa-github"></i> Código</a>
                             </div>
                         </div>
                     </div>
-                    <div class="project-card">
-                        <div class="project-image">
-                            <img src="visageAI.png" alt="Imagem do projeto Visage AI">
-                        </div>
+
+                    <div class="project-card reveal delay-3">
                         <div class="project-content">
-                            <h3>Visage AI</h3>
-                            <p>Uma plataforma que faz recomendações de estilo e perfumes conforme a personalidade do usuário.</p>
+                            <div class="project-icon"><i class="fa-solid fa-chart-line"></i></div>
+                            <h3>API Gestão Patrimonial</h3>
+                            <p>Ferramenta contábil para registro e controle de bens corporativos. Automatiza cálculos de depreciação e perda de valor contábil.</p>
                             <div class="project-tags">
-                                <span>Node.js</span><span>Express.js</span><span>API</span>
+                                <span>Java</span><span>Spring</span><span>PostgreSQL</span>
                             </div>
                             <div class="project-links">
-                                <a href="https://person-analise-image.netlify.app/" target="_blank">Ver Projeto <i class="fa-solid fa-arrow-right"></i></a>
-                                <a href="https://github.com/ThaigoDev" target="_blank">GitHub</a>
+                                <a href="https://github.com/ThaigoDev/api-logos.git" target="_blank">Ver Detalhes <i class="fa-solid fa-arrow-right"></i></a>
+                                <a href="https://github.com/ThaigoDev/api-logos.git" target="_blank"><i class="fa-brands fa-github"></i> Código</a>
                             </div>
                         </div>
                     </div>
+
+                    <div class="project-card reveal delay-4">
+                        <div class="project-content">
+                            <div class="project-icon"><i class="fa-solid fa-filter"></i></div>
+                            <h3>API Lead Nexus</h3>
+                            <p>Backend de plataforma CRM para gestão e captação de leads. Foco na estruturação eficiente de dados para o funil de vendas.</p>
+                            <div class="project-tags">
+                                <span>Node.js</span><span>Express</span><span>MongoDB</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://lead-nexus-software-api-rest.onrender.com" target="_blank">Acessar API <i class="fa-solid fa-arrow-right"></i></a>
+                                <a href="https://github.com/ThaigoDev" target="_blank"><i class="fa-brands fa-github"></i> Código</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card reveal delay-5">
+                        <div class="project-content">
+                            <div class="project-icon"><i class="fa-regular fa-calendar-check"></i></div>
+                            <h3>API de Agendamentos</h3>
+                            <p>Serviço back-end focado em gestão de horários para pequenos e médios empreendedores, facilitando o controle da cartela de clientes.</p>
+                            <div class="project-tags">
+                                <span>Java</span><span>Spring Boot</span><span>JUnit</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/ThaigoDev/api-agendamento-java.git" target="_blank">Ver Detalhes <i class="fa-solid fa-arrow-right"></i></a>
+                                <a href="https://github.com/ThaigoDev/api-agendamento-java.git" target="_blank"><i class="fa-brands fa-github"></i> Código</a>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
         
         <section class="contact" id="contact">
-            <div class="container contact-container">
-                 <h2 class="section-title">Vamos conversar?</h2>
-                 <p>Estou sempre aberto a novas oportunidades, colaborações e projetos desafiadores. Sinta-se à vontade para entrar em contato.</p>
+            <div class="container contact-container reveal">
+                 <h2 class="section-title">Ping _</h2>
+                 <p>Estou aberto a oportunidades na área de engenharia de software e back-end. Fique à vontade para entrar em contato.</p>
                  <a href="mailto:thaigodeveloper@gmail.com" class="contact-email">thaigodeveloper@gmail.com</a>
                  <div class="contact-socials">
                     <a href="https://github.com/ThaigoDev" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
                     <a href="https://www.linkedin.com/in/thiago-duarte-298121240/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://www.instagram.com/thaaigoo/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
                  </div>
             </div>
         </section>
@@ -192,7 +243,7 @@
     
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 Thiago Duarte. Construído com <i class="fa-solid fa-heart"></i> e muito código.</p>
+            <p>&copy; 2026 Thiago Duarte. Compilado com <i class="fa-solid fa-mug-hot"></i> e código.</p>
         </div>
     </footer>
     
