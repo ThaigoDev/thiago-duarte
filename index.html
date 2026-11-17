@@ -3,251 +3,420 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thiago Duarte | Desenvolvedor Java & Full-Stack</title>
-    <meta name="description" content="Portfólio de Thiago Duarte, desenvolvedor de software focado em back-end com Java, Spring Boot e ecossistema JavaScript.">
-    
+    <title>ThaigoDev | Thiago Duarte — Back-End Java</title>
+    <meta name="description" content="Portfólio de Thiago Duarte, desenvolvedor back-end com Java, Spring Boot e Nest.js — em formato de jogo 2D.">
+    <meta name="theme-color" content="#0d1117">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
     <link rel="stylesheet" href="main.css">
+    <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
 
-    <canvas id="tech-canvas"></canvas>
-    <div class="grid-overlay"></div>
-    <div class="glow-orb orb-1"></div>
-    <div class="glow-orb orb-2"></div>
+    <!-- ============ MUNDO (parallax pixel) ============ -->
+    <canvas id="world" aria-hidden="true"></canvas>
+    <div class="scanlines" aria-hidden="true"></div>
 
-    <header class="header">
-        <div class="container">
-            <a href="#home" class="logo"><span class="tag">&lt;</span>Thiago.Dev<span class="tag">/&gt;</span></a>
-            <nav class="navbar">
-                <a href="#about">Sobre & Experiência</a>
-                <a href="#skills">Stack</a>
-                <a href="#projects">Projetos</a>
-                <a href="#contact" class="btn-contact">Contato</a>
-            </nav>
-            <button class="hamburger" id="menu-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
+    <!-- ============ BOOT ============ -->
+    <div class="boot" id="boot" role="dialog" aria-label="Tela inicial">
+        <div class="boot-inner">
+            <pre class="boot-log" id="boot-log"></pre>
+            <button class="boot-start" id="boot-start">
+                <span class="blink">▶</span> PRESS START
+            </button>
+            <p class="boot-hint">clique, aperte qualquer tecla ou role a página</p>
+        </div>
+    </div>
+
+    <!-- ============ HUD ============ -->
+    <header class="hud" id="hud">
+        <a href="#start" class="hud-player" aria-label="Voltar ao início">
+            <span class="hud-1up">1UP</span>
+            <span class="hud-name">THAIGO</span>
+        </a>
+        <div class="hud-block">
+            <span class="hud-label">SCORE</span>
+            <span class="hud-value" id="score">000000</span>
+        </div>
+        <div class="hud-block hud-coins">
+            <span class="coin-mini" aria-hidden="true"></span>
+            <span class="hud-value">×<span id="coins">00</span></span>
+        </div>
+        <div class="hud-block hud-world">
+            <span class="hud-label">WORLD</span>
+            <span class="hud-value" id="world-name">START</span>
+        </div>
+        <div class="hud-block hud-lives" aria-label="3 vidas">
+            <span class="heart"></span><span class="heart"></span><span class="heart"></span>
+        </div>
+        <div class="hud-actions">
+            <button class="hud-btn" id="sound-toggle" aria-pressed="false" title="Som">
+                <i class="fa-solid fa-volume-xmark"></i>
+            </button>
+            <button class="hud-btn hud-menu" id="menu-toggle" aria-expanded="false" aria-controls="pause">
+                MAPA
             </button>
         </div>
+        <div class="xp-bar" aria-hidden="true"><span id="xp-fill"></span></div>
     </header>
 
+    <!-- ============ PAUSE / MAPA ============ -->
+    <nav class="pause" id="pause" aria-label="Mapa de fases" hidden>
+        <div class="pause-box px-box">
+            <p class="pause-title">— PAUSE —</p>
+            <ol class="pause-list">
+                <li><a href="#start"><span>00</span> TÍTULO</a></li>
+                <li><a href="#about"><span>01</span> SELEÇÃO DE PERSONAGEM</a></li>
+                <li><a href="#quests"><span>02</span> QUEST LOG</a></li>
+                <li><a href="#stack"><span>03</span> INVENTÁRIO</a></li>
+                <li><a href="#projects"><span>04</span> BOSS RUSH</a></li>
+                <li><a href="#contact"><span>05</span> SAVE POINT</a></li>
+            </ol>
+            <p class="pause-hint">[ESC] para continuar</p>
+        </div>
+    </nav>
+
     <main>
-        <section class="home" id="home">
-            <div class="container home-container">
-                <div class="home-text reveal">
-                    <p class="tech-greeting typing-effect">System.out.println("Hello, World!");</p>
-                    <h1 class="heading-xl">Desenvolvedor <span class="highlight">Backend Java</span> & Full-Stack</h1>
-                    <p class="subheading">Atuo no desenvolvimento de software e infraestrutura. Minha base técnica envolve a criação de APIs, manutenção de sistemas legados e implantação de servidores, com foco atual no ecossistema Java e Spring Boot.</p>
-                    <div class="home-buttons">
-                        <a href="#projects" class="btn btn-primary">Ver Projetos</a>
-                        <a href="https://www.linkedin.com/in/thiago-duarte-298121240/" target="_blank" class="btn btn-secondary">LinkedIn <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-                    </div>
+
+        <!-- ============ 00 · TÍTULO (scroll-scrub) ============ -->
+        <section class="title-screen" id="start" data-world="START">
+            <div class="stage">
+                <div class="title-wrap" id="title-wrap">
+                    <p class="title-kicker">— A BACK-END ADVENTURE —</p>
+                    <h1 class="title-logo" aria-label="ThaigoDev">
+                        <span class="title-shadow" aria-hidden="true">THAIGODEV</span>
+                        <span class="title-main">THAIGODEV</span>
+                    </h1>
+                    <p class="title-sub">back-end <b>//</b> java <b>//</b> spring <b>//</b> nest.js</p>
+                    <p class="title-press blink">▼ ROLE PARA JOGAR ▼</p>
                 </div>
-                <div class="home-image reveal delay-1">
-                    <div class="image-wrapper">
-                         <img src="ft.png" alt="Foto de perfil de Thiago Duarte">
-                         <div class="tech-circle"></div>
-                    </div>
+
+                <div class="hero-bubble" id="hero-bubble" aria-hidden="true">
+                    <p id="hero-bubble-text"></p>
+                </div>
+                <canvas class="hero-big" id="hero-big" width="12" height="16" aria-hidden="true"></canvas>
+
+                <div class="title-meta">
+                    <span class="chip chip-teal">● online</span>
+                    <span class="chip"><i class="fa-solid fa-location-dot"></i> Matipó, MG</span>
+                    <span class="chip">vibe <mark>stay_cool</mark></span>
                 </div>
             </div>
         </section>
 
-        <section class="about" id="about">
+        <!-- ============ 01 · PERSONAGEM ============ -->
+        <section class="level" id="about" data-world="1-1">
             <div class="container">
-                <h2 class="section-title reveal">Trajetória Profissional_</h2>
-                <div class="about-grid">
-                    <div class="about-description reveal delay-1">
-                        <p>Sou estudante de Ciência da Computação na Univértix e desenvolvedor de software. Tenho background prático como Full-Stack (utilizando Node.js, React e bancos relacionais/não-relacionais), mas venho direcionando minha carreira para a engenharia de back-end corporativa com <strong>Java</strong>.</p>
-                        <p>No meu dia a dia, lido diretamente com o ciclo de vida completo de aplicações corporativas: desde o levantamento de requisitos e estruturação do banco de dados, até a configuração de pipelines de CI/CD e monitoramento em servidores Linux VPS.</p>
-                        <a href="BACK-END JAVA- CV-THIAGO-BRUTO.pdf" download class="btn-download">
-                            <i class="fa-solid fa-terminal"></i> Download_CV.pdf
-                        </a>
+                <header class="level-head reveal">
+                    <span class="level-tag">WORLD 1-1</span>
+                    <h2 class="level-title">Seleção de<br><em>Personagem</em></h2>
+                </header>
+
+                <div class="select-grid">
+                    <div class="portrait px-box reveal">
+                        <div class="portrait-frame" id="portrait">
+                            <img src="ft.jpeg" alt="Foto de Thiago Duarte" class="portrait-photo" loading="lazy">
+                            <canvas class="portrait-pixel" id="portrait-pixel" aria-hidden="true"></canvas>
+                        </div>
+                        <div class="portrait-foot">
+                            <span class="p1">P1</span>
+                            <button class="mini-btn" id="portrait-toggle" aria-pressed="false">[A] MODO HD</button>
+                        </div>
                     </div>
-                    
-                    <div class="about-experience">
-                        <div class="experience-item reveal delay-2">
-                            <div class="experience-year">Out 2025 - Presente</div>
-                            <div class="experience-details">
-                                <h3>Desenvolvedor Full-Stack | Centro Universitário Univértix</h3>
-                                <p>Contribuí para o desenvolvimento de aplicações completas utilizando Next.js, Nest.js e MySQL, implementando soluções que melhoraram em até 30% a performance das aplicações da instituição. Desenvolvi e mantive APIs escaláveis com Nest.js, aumentando a produtividade da equipe ao automatizar processos manuais. Implementei pipelines de CI/CD e gerenciei deploys em servidores VPS Linux, garantindo entregas contínuas e com alta disponibilidade.</p>
+
+                    <div class="char-sheet px-box reveal delay-1">
+                        <div class="char-head">
+                            <div>
+                                <p class="char-name">THIAGO DUARTE</p>
+                                <p class="char-class">Classe: <b>Back-End Developer</b></p>
                             </div>
+                            <span class="char-lv">LV<b>03</b></span>
                         </div>
 
-                        <div class="experience-item reveal delay-3">
-                            <div class="experience-year">Fev 2025 - Out 2025</div>
-                            <div class="experience-details">
-                                <h3>Profissional de Marketing & Web Design | Centro Universitário Univértix</h3>
-                                <p>Atuo com edição de vídeos, design gráfico, UI/UX e desenvolvimento web (HTML, CSS, JS). Minha missão é transformar ideias em experiências visuais impactantes e funcionais, combinando criatividade técnica para entregar projetos de alta qualidade para a instituição.</p>
-                            </div>
-                        </div>
+                        <dl class="char-info">
+                            <div><dt>ORIGEM</dt><dd>Matipó, MG — BR</dd></div>
+                            <div><dt>GUILDA</dt><dd>Univértix</dd></div>
+                            <div><dt>FORMAÇÃO</dt><dd>Ciência da Computação</dd></div>
+                            <div><dt>ARMA</dt><dd>Java + Spring Boot</dd></div>
+                        </dl>
 
-                        <div class="experience-item reveal delay-4">
-                            <div class="experience-year">Ago 2024 - Fev 2025</div>
-                            <div class="experience-details">
-                                <h3>Desenvolvedor Web Full-Stack | Freelancer.com</h3>
-                                <p>Desenvolvimento de soluções personalizadas e escaláveis para clientes de diversos setores. Atuação no ecossistema JavaScript/TypeScript (React, React Native, Node.js, Express) e gerenciamento de bancos de dados como MySQL, MongoDB e PostgreSQL, sempre com foco em responsividade e UX.</p>
-                            </div>
-                        </div>
+                        <ul class="stats" aria-label="Atributos">
+                            <li><span>JAVA</span><i style="--v:90" class="bar bar-yellow"></i></li>
+                            <li><span>SPRING</span><i style="--v:85" class="bar bar-teal"></i></li>
+                            <li><span>NEST.JS</span><i style="--v:80" class="bar bar-pink"></i></li>
+                            <li><span>SQL/NOSQL</span><i style="--v:80" class="bar bar-teal"></i></li>
+                            <li><span>DEVOPS</span><i style="--v:70" class="bar bar-purple"></i></li>
+                            <li><span>CAFÉ</span><i style="--v:99" class="bar bar-pink"></i></li>
+                        </ul>
+                    </div>
+                </div>
 
-                        <div class="experience-item reveal delay-5">
-                            <div class="experience-year">Ago 2023 - Jul 2024</div>
-                            <div class="experience-details">
-                                <h3>Desenvolvedor Web Full-Stack | SCS Digital Business</h3>
-                                <p>Atuação remota em projetos web utilizando metodologias ágeis. Participação no design de interfaces e implementação de novas features funcionais no front-end e integrações de back-end.</p>
-                            </div>
+                <span class="coin" aria-hidden="true"></span>
+
+                <div class="dialog px-box reveal" data-type>
+                    <p class="dialog-speaker">THIAGO:</p>
+                    <div class="dialog-body">
+                        <p>Sou desenvolvedor de software formado em Ciência da Computação pela Univértix. Comecei como Full-Stack (Node.js, React, bancos relacionais e NoSQL) e hoje direciono minha carreira para a engenharia de back-end corporativa com <strong>Java</strong>.</p>
+                        <p>No dia a dia lido com o ciclo de vida completo das aplicações: levantamento de requisitos, modelagem de banco, APIs REST em camadas com contratos em Swagger, pipelines de CI/CD e deploy em servidores Linux VPS.</p>
+                    </div>
+                    <span class="dialog-next blink" aria-hidden="true">▼</span>
+                </div>
+
+                <div class="item-get reveal">
+                    <a href="BACK-END JAVA- CV-THIAGO-BRUTO.pdf" download class="btn btn-yellow">
+                        <span class="chest" aria-hidden="true"></span>
+                        COLETAR ITEM: CV.pdf
+                    </a>
+                    <span class="item-get-note">+500 XP de recrutador</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ 02 · QUEST LOG ============ -->
+        <section class="level" id="quests" data-world="1-2">
+            <div class="container">
+                <header class="level-head reveal">
+                    <span class="level-tag">WORLD 1-2</span>
+                    <h2 class="level-title">Quest<br><em>Log</em></h2>
+                    <p class="level-desc">Cada checkpoint é uma fase que já passei. Role para avançar no mapa.</p>
+                </header>
+
+                <div class="quest-map" id="quest-map">
+                    <div class="quest-path" aria-hidden="true">
+                        <span class="quest-path-fill" id="quest-fill"></span>
+                    </div>
+
+                    <article class="quest">
+                        <div class="quest-flag" aria-hidden="true"></div>
+                        <div class="quest-card px-box">
+                            <p class="quest-meta"><span class="quest-stage">STAGE 01</span> Ago 2023 — Jul 2024</p>
+                            <h3>Desenvolvedor Web Full-Stack</h3>
+                            <p class="quest-npc">@ SCS Digital Business · remoto</p>
+                            <p>Projetos web com metodologias ágeis. Participei do design de interfaces e implementei novas features no front-end e integrações de back-end.</p>
+                            <ul class="loot"><li>+ Agile</li><li>+ UI</li><li>+ Integrações</li></ul>
+                            <span class="quest-status done">QUEST COMPLETA</span>
                         </div>
+                    </article>
+
+                    <article class="quest">
+                        <div class="quest-flag" aria-hidden="true"></div>
+                        <div class="quest-card px-box">
+                            <p class="quest-meta"><span class="quest-stage">STAGE 02</span> Ago 2024 — Fev 2025</p>
+                            <h3>Desenvolvedor Web Full-Stack</h3>
+                            <p class="quest-npc">@ Freelancer.com</p>
+                            <p>Soluções personalizadas e escaláveis para clientes de vários setores, no ecossistema JavaScript/TypeScript (React, React Native, Node.js, Express) com MySQL, MongoDB e PostgreSQL.</p>
+                            <ul class="loot"><li>+ TypeScript</li><li>+ React Native</li><li>+ PostgreSQL</li></ul>
+                            <span class="quest-status done">QUEST COMPLETA</span>
+                        </div>
+                    </article>
+
+                    <span class="coin" aria-hidden="true"></span>
+
+                    <article class="quest">
+                        <div class="quest-flag" aria-hidden="true"></div>
+                        <div class="quest-card px-box">
+                            <p class="quest-meta"><span class="quest-stage">STAGE 03</span> Fev 2025 — Out 2025</p>
+                            <h3>Marketing &amp; Web Design</h3>
+                            <p class="quest-npc">@ Centro Universitário Univértix</p>
+                            <p>Edição de vídeo, design gráfico, UI/UX e desenvolvimento web. Transformar ideias em experiências visuais funcionais para a instituição.</p>
+                            <ul class="loot"><li>+ UI/UX</li><li>+ Design</li><li>+ Front-end</li></ul>
+                            <span class="quest-status done">QUEST COMPLETA</span>
+                        </div>
+                    </article>
+
+                    <article class="quest quest-current">
+                        <div class="quest-flag" aria-hidden="true"></div>
+                        <div class="quest-card px-box">
+                            <p class="quest-meta"><span class="quest-stage">STAGE 04</span> Out 2025 — Presente</p>
+                            <h3>Desenvolvedor Full-Stack</h3>
+                            <p class="quest-npc">@ Centro Universitário Univértix</p>
+                            <p>Aplicações completas com Next.js, Nest.js e MySQL, com até <strong>30% de ganho de performance</strong>. APIs escaláveis em Nest.js que automatizaram processos manuais, pipelines de CI/CD e deploys em VPS Linux com alta disponibilidade.</p>
+                            <ul class="loot"><li>+ Nest.js</li><li>+ CI/CD</li><li>+ VPS Linux</li></ul>
+                            <span class="quest-status live"><span class="blink">●</span> EM ANDAMENTO</span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ 03 · INVENTÁRIO ============ -->
+        <section class="level" id="stack" data-world="1-3">
+            <div class="container">
+                <header class="level-head reveal">
+                    <span class="level-tag">WORLD 1-3</span>
+                    <h2 class="level-title">Inven<em>tário</em></h2>
+                    <p class="level-desc">Passe o mouse (ou toque) num item para ver os detalhes.</p>
+                </header>
+
+                <div class="inventory px-box reveal">
+                    <div class="inv-tabs" role="tablist" aria-label="Filtrar itens">
+                        <button role="tab" aria-selected="true" data-filter="all">TODOS</button>
+                        <button role="tab" aria-selected="false" data-filter="back">BACK</button>
+                        <button role="tab" aria-selected="false" data-filter="data">DADOS</button>
+                        <button role="tab" aria-selected="false" data-filter="ops">DEVOPS</button>
+                        <button role="tab" aria-selected="false" data-filter="front">FRONT</button>
+                    </div>
+
+                    <div class="inv-body">
+                        <ul class="inv-grid" id="inv-grid"></ul>
+
+                        <aside class="inv-detail" id="inv-detail" aria-live="polite">
+                            <div class="inv-detail-icon" id="inv-icon"></div>
+                            <p class="inv-detail-name" id="inv-name">Selecione um item</p>
+                            <p class="inv-detail-rarity" id="inv-rarity">—</p>
+                            <p class="inv-detail-desc" id="inv-desc">Cada tecnologia é um item do meu inventário. Os lendários são os que eu mais uso.</p>
+                        </aside>
+                    </div>
+                </div>
+
+                <span class="coin" aria-hidden="true"></span>
+            </div>
+        </section>
+
+        <!-- ============ 04 · BOSS RUSH (horizontal) ============ -->
+        <section class="level boss-rush" id="projects" data-world="1-4">
+            <div class="boss-pin">
+                <header class="level-head boss-head">
+                    <span class="level-tag">WORLD 1-4</span>
+                    <h2 class="level-title">Boss <em>Rush</em></h2>
+                    <p class="boss-counter">BOSS <span id="boss-idx">1</span>/<span id="boss-total">6</span></p>
+                </header>
+
+                <div class="boss-track" id="boss-track">
+
+                    <article class="boss px-box boss-main">
+                        <p class="boss-stage">★ MAIN QUEST · TCC</p>
+                        <div class="boss-icon"><i class="fa-brands fa-java"></i></div>
+                        <h3>API Gestão de Estoque</h3>
+                        <div class="hp"><span class="hp-label">HP</span><span class="hp-bar"><i></i></span></div>
+                        <p>Sistema corporativo com Clean Architecture e princípios SOLID. Containerizado com Docker e orquestrado na AWS (ECS + RDS).</p>
+                        <ul class="power"><li>Java</li><li>Spring Boot</li><li>Docker</li><li>AWS</li></ul>
+                        <div class="boss-links">
+                            <a href="https://api-smart-stock-java.onrender.com" target="_blank" rel="noopener" class="btn btn-pink">▶ JOGAR</a>
+                            <a href="https://github.com/ThaigoDev/api-smart-stock-java" target="_blank" rel="noopener" class="btn btn-ghost"><i class="fa-brands fa-github"></i> CÓDIGO</a>
+                        </div>
+                        <span class="defeated">DERROTADO!</span>
+                    </article>
+
+                    <article class="boss px-box">
+                        <p class="boss-stage">STAGE 4-2</p>
+                        <div class="boss-icon"><i class="fa-solid fa-book-open-reader"></i></div>
+                        <h3>Library API</h3>
+                        <div class="hp"><span class="hp-label">HP</span><span class="hp-bar"><i></i></span></div>
+                        <p>API REST de gestão de bibliotecas com módulo de usuários, Authorization Server próprio, JWT e login social OAuth2.</p>
+                        <ul class="power"><li>Java</li><li>Spring Security</li><li>OAuth2</li><li>JPA</li></ul>
+                        <div class="boss-links">
+                            <a href="https://github.com/ThaigoDev/library-api" target="_blank" rel="noopener" class="btn btn-ghost"><i class="fa-brands fa-github"></i> CÓDIGO</a>
+                        </div>
+                        <span class="defeated">DERROTADO!</span>
+                    </article>
+
+                    <article class="boss px-box">
+                        <p class="boss-stage">STAGE 4-3</p>
+                        <div class="boss-icon"><i class="fa-solid fa-chart-line"></i></div>
+                        <h3>API Gestão Patrimonial</h3>
+                        <div class="hp"><span class="hp-label">HP</span><span class="hp-bar"><i></i></span></div>
+                        <p>Ferramenta contábil para registro e controle de bens corporativos. Automatiza cálculos de depreciação e perda de valor contábil.</p>
+                        <ul class="power"><li>Java</li><li>Spring</li><li>PostgreSQL</li></ul>
+                        <div class="boss-links">
+                            <a href="https://github.com/ThaigoDev/api-logos" target="_blank" rel="noopener" class="btn btn-ghost"><i class="fa-brands fa-github"></i> CÓDIGO</a>
+                        </div>
+                        <span class="defeated">DERROTADO!</span>
+                    </article>
+
+                    <article class="boss px-box">
+                        <p class="boss-stage">STAGE 4-4</p>
+                        <div class="boss-icon"><i class="fa-regular fa-calendar-check"></i></div>
+                        <h3>API de Agendamentos</h3>
+                        <div class="hp"><span class="hp-label">HP</span><span class="hp-bar"><i></i></span></div>
+                        <p>Back-end para gestão de horários de pequenos e médios empreendedores, facilitando o controle da cartela de clientes.</p>
+                        <ul class="power"><li>Java</li><li>Spring Boot</li><li>JUnit</li></ul>
+                        <div class="boss-links">
+                            <a href="https://github.com/ThaigoDev/api-agendamento-java" target="_blank" rel="noopener" class="btn btn-ghost"><i class="fa-brands fa-github"></i> CÓDIGO</a>
+                        </div>
+                        <span class="defeated">DERROTADO!</span>
+                    </article>
+
+                    <article class="boss px-box">
+                        <p class="boss-stage">STAGE 4-5</p>
+                        <div class="boss-icon"><i class="fa-solid fa-filter"></i></div>
+                        <h3>API Lead Nexus</h3>
+                        <div class="hp"><span class="hp-label">HP</span><span class="hp-bar"><i></i></span></div>
+                        <p>Back-end de um CRM para gestão e captação de leads, com foco na estruturação eficiente dos dados do funil de vendas.</p>
+                        <ul class="power"><li>Node.js</li><li>Express</li><li>MongoDB</li></ul>
+                        <div class="boss-links">
+                            <a href="https://lead-nexus-software-api-rest.onrender.com" target="_blank" rel="noopener" class="btn btn-pink">▶ JOGAR</a>
+                            <a href="https://github.com/ThaigoDev" target="_blank" rel="noopener" class="btn btn-ghost"><i class="fa-brands fa-github"></i> CÓDIGO</a>
+                        </div>
+                        <span class="defeated">DERROTADO!</span>
+                    </article>
+
+                    <article class="boss px-box">
+                        <p class="boss-stage">STAGE 4-6</p>
+                        <div class="boss-icon"><i class="fa-solid fa-rocket"></i></div>
+                        <h3>Matipó Mais</h3>
+                        <div class="hp"><span class="hp-label">HP</span><span class="hp-bar"><i></i></span></div>
+                        <p>Plataforma que conecta serviços locais e usuários, com arquitetura pensada para escalar acessos sobre banco NoSQL.</p>
+                        <ul class="power"><li>Node.js</li><li>Express</li><li>MongoDB</li></ul>
+                        <div class="boss-links">
+                            <a href="https://matipo-mais.onrender.com" target="_blank" rel="noopener" class="btn btn-pink">▶ JOGAR</a>
+                            <a href="https://github.com/ThaigoDev" target="_blank" rel="noopener" class="btn btn-ghost"><i class="fa-brands fa-github"></i> CÓDIGO</a>
+                        </div>
+                        <span class="defeated">DERROTADO!</span>
+                    </article>
+
+                    <div class="boss-end">
+                        <p>MAIS FASES EM</p>
+                        <a href="https://github.com/ThaigoDev" target="_blank" rel="noopener" class="btn btn-teal"><i class="fa-brands fa-github"></i> GITHUB</a>
                     </div>
                 </div>
             </div>
         </section>
-        
-        <section class="skills" id="skills">
+
+        <!-- ============ 05 · SAVE POINT ============ -->
+        <section class="level save" id="contact" data-world="FIM">
             <div class="container">
-                 <h2 class="section-title reveal">Tech_Stack</h2>
-                 <div class="skills-logos reveal delay-1">
-                    <div class="logo-group">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" title="Java"/>
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" title="Spring Boot"/>
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/hibernate/hibernate-original.svg" title="Hibernate / JPA"/>
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" title="MySQL"/>
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" title="PostgreSQL"/>
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" title="Docker"/>
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" title="AWS (ECS/RDS)"/>
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" title="Linux / VPS"/>
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" title="Node.js"/>
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nestjs/nestjs-original.svg" title="NestJS"/>
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" title="MongoDB"/>
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" style="filter: invert(1);" title="GitHub Actions (CI/CD)"/>
-                    </div>
-                 </div>
-            </div>
-        </section>
+                <span class="coin" aria-hidden="true"></span>
+                <div class="save-box px-box reveal">
+                    <p class="save-tag">SAVE POINT</p>
+                    <h2 class="continue">CONTINUE? <span id="countdown">9</span></h2>
+                    <p class="save-text">Estou aberto a oportunidades em engenharia de software e back-end. Bora jogar no mesmo time?</p>
 
-        <section class="projects" id="projects">
-            <div class="container">
-                <h2 class="section-title reveal">Repositórios & Deploys_</h2>
-                <div class="projects-grid">
-                    
-                    <div class="project-card highlight-card reveal">
-                        <div class="project-content">
-                            <div class="project-icon"><i class="fa-brands fa-java"></i> <i class="fa-solid fa-boxes-stacked" style="font-size: 2rem; margin-left:10px; color:var(--text-secondary)"></i></div>
-                            <h3>API Gestão de Estoque (TCC)</h3>
-                            <p>Sistema corporativo desenvolvido com Clean Architecture e princípios SOLID. Containerizado via Docker e orquestrado em ambiente AWS (ECS e RDS).</p>
-                            <div class="project-tags">
-                                <span>Java</span><span>Spring Boot</span><span>Docker</span><span>AWS</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="https://api-smart-stock-java.onrender.com" target="_blank">Acessar IP <i class="fa-solid fa-arrow-right"></i></a>
-                                <a href="https://github.com/ThaigoDev/api-smart-stock-java.git" target="_blank"><i class="fa-brands fa-github"></i> Código</a>
-                            </div>
-                        </div>
-                    </div>
+                    <a href="mailto:thaigodeveloper@gmail.com" class="btn btn-pink btn-big">
+                        ▶ YES — thaigodeveloper@gmail.com
+                    </a>
 
-                    <div class="project-card reveal delay-1">
-                        <div class="project-content">
-                            <div class="project-icon"><i class="fa-solid fa-rocket"></i></div>
-                            <h3>Matipó Mais</h3>
-                            <p>Plataforma focada na conexão entre serviços locais e usuários. Arquitetura desenhada para escalabilidade de acessos com banco de dados NoSQL.</p>
-                            <div class="project-tags">
-                                <span>Node.js</span><span>Express</span><span>MongoDB</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="https://matipo-mais.onrender.com" target="_blank">Acessar App <i class="fa-solid fa-arrow-right"></i></a>
-                                <a href="https://github.com/ThaigoDev" target="_blank"><i class="fa-brands fa-github"></i> Código</a>
-                            </div>
-                        </div>
+                    <div class="save-socials">
+                        <a href="https://github.com/ThaigoDev" target="_blank" rel="noopener" class="btn btn-ghost"><i class="fa-brands fa-github"></i> GitHub</a>
+                        <a href="https://www.linkedin.com/in/thiago-duarte-298121240/" target="_blank" rel="noopener" class="btn btn-ghost"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
                     </div>
+                </div>
 
-                    <div class="project-card reveal delay-2">
-                        <div class="project-content">
-                            <div class="project-icon"><i class="fa-solid fa-book-open-reader"></i></div>
-                            <h3>Library API</h3>
-                            <p>API REST para gerenciamento de bibliotecas. Conta com módulo de usuários, Authorization Server próprio, segurança via JWT e login social OAuth2.</p>
-                            <div class="project-tags">
-                                <span>Java</span><span>Spring Security</span><span>OAuth2</span><span>JPA</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="https://github.com/ThaigoDev/library-api.git" target="_blank">Ver Detalhes <i class="fa-solid fa-arrow-right"></i></a>
-                                <a href="https://github.com/ThaigoDev/library-api.git" target="_blank"><i class="fa-brands fa-github"></i> Código</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="project-card reveal delay-3">
-                        <div class="project-content">
-                            <div class="project-icon"><i class="fa-solid fa-chart-line"></i></div>
-                            <h3>API Gestão Patrimonial</h3>
-                            <p>Ferramenta contábil para registro e controle de bens corporativos. Automatiza cálculos de depreciação e perda de valor contábil.</p>
-                            <div class="project-tags">
-                                <span>Java</span><span>Spring</span><span>PostgreSQL</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="https://github.com/ThaigoDev/api-logos.git" target="_blank">Ver Detalhes <i class="fa-solid fa-arrow-right"></i></a>
-                                <a href="https://github.com/ThaigoDev/api-logos.git" target="_blank"><i class="fa-brands fa-github"></i> Código</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="project-card reveal delay-4">
-                        <div class="project-content">
-                            <div class="project-icon"><i class="fa-solid fa-filter"></i></div>
-                            <h3>API Lead Nexus</h3>
-                            <p>Backend de plataforma CRM para gestão e captação de leads. Foco na estruturação eficiente de dados para o funil de vendas.</p>
-                            <div class="project-tags">
-                                <span>Node.js</span><span>Express</span><span>MongoDB</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="https://lead-nexus-software-api-rest.onrender.com" target="_blank">Acessar API <i class="fa-solid fa-arrow-right"></i></a>
-                                <a href="https://github.com/ThaigoDev" target="_blank"><i class="fa-brands fa-github"></i> Código</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="project-card reveal delay-5">
-                        <div class="project-content">
-                            <div class="project-icon"><i class="fa-regular fa-calendar-check"></i></div>
-                            <h3>API de Agendamentos</h3>
-                            <p>Serviço back-end focado em gestão de horários para pequenos e médios empreendedores, facilitando o controle da cartela de clientes.</p>
-                            <div class="project-tags">
-                                <span>Java</span><span>Spring Boot</span><span>JUnit</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="https://github.com/ThaigoDev/api-agendamento-java.git" target="_blank">Ver Detalhes <i class="fa-solid fa-arrow-right"></i></a>
-                                <a href="https://github.com/ThaigoDev/api-agendamento-java.git" target="_blank"><i class="fa-brands fa-github"></i> Código</a>
-                            </div>
-                        </div>
-                    </div>
-
+                <div class="credits reveal">
+                    <p>THANKS FOR PLAYING</p>
+                    <p class="credits-small">dica: tente ↑ ↑ ↓ ↓ ← → ← → B A</p>
                 </div>
             </div>
-        </section>
-        
-        <section class="contact" id="contact">
-            <div class="container contact-container reveal">
-                 <h2 class="section-title">Ping _</h2>
-                 <p>Estou aberto a oportunidades na área de engenharia de software e back-end. Fique à vontade para entrar em contato.</p>
-                 <a href="mailto:thaigodeveloper@gmail.com" class="contact-email">thaigodeveloper@gmail.com</a>
-                 <div class="contact-socials">
-                    <a href="https://github.com/ThaigoDev" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-                    <a href="https://www.linkedin.com/in/thiago-duarte-298121240/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                 </div>
-            </div>
+
+            <footer class="footer">
+                <p class="footer-wave">stay cool_</p>
+                <p class="footer-copy">© 2026 Thiago Duarte · compilado com café e código</p>
+            </footer>
         </section>
     </main>
-    
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2026 Thiago Duarte. Compilado com <i class="fa-solid fa-mug-hot"></i> e código.</p>
-        </div>
-    </footer>
-    
-    <script src="main.js"></script>
 
+    <!-- ============ TRILHA (personagem que corre com o scroll) ============ -->
+    <div class="track" id="track" aria-hidden="true">
+        <div class="track-ground"></div>
+        <div class="track-flags" id="track-flags"></div>
+        <canvas class="track-hero" id="track-hero" width="12" height="16"></canvas>
+    </div>
+
+    <div class="toasts" id="toasts" aria-live="polite"></div>
+
+    <script src="main.js"></script>
 </body>
 </html>
